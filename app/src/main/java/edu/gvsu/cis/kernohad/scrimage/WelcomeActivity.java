@@ -11,6 +11,8 @@ import android.view.MenuItem;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    //Did this commit?
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
