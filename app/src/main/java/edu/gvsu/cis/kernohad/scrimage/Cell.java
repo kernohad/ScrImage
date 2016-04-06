@@ -5,6 +5,12 @@ package edu.gvsu.cis.kernohad.scrimage;
  */
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class Cell implements Comparable<Cell> {
     public int row, column, value;
@@ -65,6 +71,19 @@ public class Cell implements Comparable<Cell> {
         bm13 = Bitmap.createBitmap(orig,      0, 3*hSub,   wSub, 4*hSub);
         bm14 = Bitmap.createBitmap(orig,   wSub, 3*hSub, 2*wSub, 4*hSub);
         bm15 = Bitmap.createBitmap(orig, 2*wSub, 3*hSub, 3*wSub, 4*hSub);
+    }
+
+    public void getBitmapFromURL(String src){
+        try {
+            URL url = new URL(src);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setDoInput(true);
+            con.connect();
+            InputStream input = con.getInputStream();
+            orig = BitmapFactory.decodeStream(input);
+        } catch (IOException e) {
+
+        }
     }
 }
 //        orig,      0, 0,   wSub, hSub);
