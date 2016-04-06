@@ -6,6 +6,7 @@ package edu.gvsu.cis.kernohad.scrimage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,7 +83,7 @@ public class Cell implements Comparable<Cell> {
             InputStream input = con.getInputStream();
             orig = BitmapFactory.decodeStream(input);
         } catch (IOException e) {
-
+            Log.d("IOException","IOException in getBitmapFromURL");
         }
     }
 }
