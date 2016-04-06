@@ -3,8 +3,12 @@ package edu.gvsu.cis.kernohad.scrimage;
 /**
  * Created by Hans Dulimarta (Summer 2014)
  */
+
+import android.graphics.Bitmap;
+
 public class Cell implements Comparable<Cell> {
     public int row, column, value;
+    private Bitmap img;
 
     public Cell()
     {
@@ -28,5 +32,9 @@ public class Cell implements Comparable<Cell> {
 
         /* break the tie using column */
         return this.column - other.column;
+    }
+
+    public void drawPiece(Bitmap img, int i){
+
     }
 }
