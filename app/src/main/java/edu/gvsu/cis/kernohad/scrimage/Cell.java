@@ -6,7 +6,10 @@ package edu.gvsu.cis.kernohad.scrimage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
+import android.view.WindowManager;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,11 +48,19 @@ public class Cell implements Comparable<Cell> {
         return this.column - other.column;
     }
 
-    public void splitImage(){
-        int wSub = orig.getWidth()/4;
-        int hSub = orig.getHeight()/4;
+    public int getDisplayWidth(){
+        DisplayMetrics metrics = new DisplayMetrics();
+        return metrics.widthPixels;
+    }
 
-        //bitmap factory image
+    public void splitImage(){
+        int wSub, hSub, x = getDisplayWidth();
+        String w = ""+x;
+        String url = "https://unsplash.it/"+w+"/"+w+"/?random";
+        getBitmapFromURL(url);
+        wSub = orig.getWidth()/4;
+        hSub = orig.getHeight()/4;
+
         //1st row
         bm1 = Bitmap.createBitmap(orig,      0, 0,   wSub, hSub);
         bm2 = Bitmap.createBitmap(orig,   wSub, 0, 2*wSub, hSub);
