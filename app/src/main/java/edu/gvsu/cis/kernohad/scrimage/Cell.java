@@ -18,10 +18,7 @@ import java.net.URL;
 
 public class Cell implements Comparable<Cell> {
     public int row, column, value;
-    Bitmap orig, bm1, bm2, bm3, bm4,
-                         bm5, bm6, bm7, bm8,
-                         bm9, bm10, bm11, bm12,
-                         bm13, bm14, bm15;//bm16 empty
+    public Bitmap orig;
 
 
     public Cell()
