@@ -50,11 +50,17 @@ public class Cell implements Comparable<Cell> {
         return metrics.widthPixels;
     }
 
-    public Bitmap splitImage(int i){
+    public Bitmap splitImage(int i)
+            /*
+            parameter: an int to tell the function which bitmap to return.
+            Sugg.:  Use a loop from 0 to 14 to "paint" each returned bitmap to
+                    the 2d array of ImageView.
+            */
+    {
         int wSub, hSub, x = getDisplayWidth();
         String w = ""+x;
         String url = "https://unsplash.it/"+w+"/"+w+"/?random";
-        if(getBitmapFromURL(url) == null)
+        if(getBitmapFromURL(url) == null)//need to use retrofit
             Log.d("Error", "orig Bitmap is null");
         else {
             orig = getBitmapFromURL(url);
