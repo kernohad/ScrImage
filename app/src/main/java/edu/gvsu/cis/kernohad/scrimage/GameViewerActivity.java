@@ -22,12 +22,20 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+
+
 public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView{
 
     GridLayout gridLayout;
     GestureDetectorCompat gDetector;
     IPresenter  presenter;
     TextView[][] tvArray;
+    Target loadTarget;
     Bitmap orig, bm0, bm1, bm2, bm3,
                  bm4, bm5, bm6, bm7,
                  bm8, bm9, bm10, bm11,
@@ -215,6 +223,28 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     }
 
     public void loadBitmap(String url, int x, int y, Context context){
+        if (loadTarget == null)loadTarget = new Target(){
 
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                splitImage(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+
+        Picasso.with(context).load(url)
+                .resize(x,y)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .into(loadTarget);
     }
 }
