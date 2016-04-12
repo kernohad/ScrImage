@@ -1,5 +1,6 @@
 package edu.gvsu.cis.kernohad.scrimage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,11 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView{
 
     GridLayout gridLayout;
@@ -31,6 +37,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                  bm4, bm5, bm6, bm7,
                  bm8, bm9, bm10, bm11,
                  bm12, bm13, bm14;
+    Target loadTarget;
 
 
     @Override
@@ -45,6 +52,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         setContentView(R.layout.activity_game_viewer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //call loadBitmap. pass url,height,width,context
+        int size = getDisplayWidth() - 100;
+        loadBitmap("https://source.unsplash.com/random/", size, size, getApplicationContext());
 
         gridLayout = (GridLayout) findViewById(R.id.grid_layout);
         gDetector = new GestureDetectorCompat(this, this);
@@ -205,5 +216,30 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         ivArray[3][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, 4 * hSub));
         ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, 2 * wSub, 4 * hSub));
         ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, 3 * wSub, 4 * hSub));
+    }
+
+    public void loadBitmap(String url, int x, int y, Context context){
+        if(loadTarget == null) loadTarget = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                splitImage(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+
+        Picasso.with(context).load(url)
+                .resize(x,y)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .into(loadTarget);
     }
 }
