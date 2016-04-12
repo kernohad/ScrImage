@@ -26,7 +26,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     GridLayout gridLayout;
     GestureDetectorCompat gDetector;
     IPresenter  presenter;
-    ImageView[][] ivArray;
+    TextView[][] tvArray;
     Bitmap orig, bm0, bm1, bm2, bm3,
                  bm4, bm5, bm6, bm7,
                  bm8, bm9, bm10, bm11,
@@ -50,7 +50,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
         Drawable border = getResources().getDrawable(R.drawable.drawable);
 
-        ivArray = new ImageView[4][4];
+        tvArray = new TextView[4][4];
 
         for (int k = 0; k < 16; k++) {
             int ri = k / 4;    /* determine row and column index */
@@ -153,9 +153,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     @Override
     public void swapTiles(int r1, int c1, int r2, int c2) {
-        ImageView tmp = ivArray[r1][c1];
-        ivArray[r1][c1] = ivArray[r2][c2];
-        ivArray[r2][c2] = tmp;
+        String lab1 = tvArray[r1][c1].getText().toString();
+        String lab2 = tvArray[r2][c2].getText().toString();
+        tvArray[r1][c1].setText(lab2);
+        tvArray[r2][c2].setText(lab1);
     }
 
     @Override
@@ -178,22 +179,22 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         return metrics.widthPixels;
     }
 
-    public void splitImageIntoArray(Bitmap img)
+    public void splitImage(Bitmap img)
     {
         int wSub, hSub;
         orig = img;
         wSub = orig.getWidth() / 4;
         hSub = orig.getHeight() / 4;
         //1st row
-        ivArray[0][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 0, wSub, hSub));
-        ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, 2 * wSub, hSub));
-        ivArray[0][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 0, 3 * wSub, hSub));
-        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 0, 4 * wSub, hSub));
+        bm0  = Bitmap.createBitmap(orig, 0, 0, wSub, hSub);
+        bm1  = Bitmap.createBitmap(orig, wSub, 0, 2 * wSub, hSub);
+        bm2  = Bitmap.createBitmap(orig, 2 * wSub, 0, 3 * wSub, hSub);
+        bm3  = Bitmap.createBitmap(orig, 3 * wSub, 0, 4 * wSub, hSub);
         //2nd row
-        ivArray[1][0].setImageBitmap(Bitmap.createBitmap(orig, 0, hSub, wSub, 2 * hSub));
-        ivArray[1][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, hSub, 2 * wSub, 2 * hSub));
-        ivArray[1][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, hSub, 3 * wSub, 2 * hSub));
-        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, hSub, 4 * wSub, 2 * hSub));
+        bm4  = Bitmap.createBitmap(orig, 0, hSub, wSub, 2 * hSub);
+        bm5  = Bitmap.createBitmap(orig, wSub, hSub, 2 * wSub, 2 * hSub);
+        bm6  = Bitmap.createBitmap(orig, 2 * wSub, hSub, 3 * wSub, 2 * hSub);
+        bm7  = Bitmap.createBitmap(orig, 3 * wSub, hSub, 4 * wSub, 2 * hSub);
         //3rd roW
         bm8  = Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, 3 * hSub);
         bm9  = Bitmap.createBitmap(orig, wSub, 2 * hSub, 2 * wSub, 3 * hSub);
