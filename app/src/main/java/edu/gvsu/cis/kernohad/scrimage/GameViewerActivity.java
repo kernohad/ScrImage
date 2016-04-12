@@ -1,5 +1,6 @@
 package edu.gvsu.cis.kernohad.scrimage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -69,6 +70,13 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
             mytext.setBackground(border);
             mytext.setGravity(Gravity.CENTER_HORIZONTAL);
             mytext.setWidth(300);    // or any number of pixels that work for your device
+
+
+            //calls loadBitmap passing url, width and height, and application context
+            int size = getDisplayWidth() - 100;
+
+            loadBitmap("https://source.unsplash.com/random/", size, size, getApplicationContext());
+
         }
 
         presenter = new Presenter();
@@ -214,5 +222,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     public Bitmap getBitmapFromImageView(ImageView img){
         img.buildDrawingCache();
         return img.getDrawingCache();
+    }
+
+    public void loadBitmap(String url, int x, int y, Context context){
+
     }
 }
