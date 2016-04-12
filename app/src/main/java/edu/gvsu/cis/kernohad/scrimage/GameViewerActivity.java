@@ -26,11 +26,12 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     GridLayout gridLayout;
     GestureDetectorCompat gDetector;
     IPresenter  presenter;
-    TextView[][] tvArray;
+    ImageView[][] ivArray;
     Bitmap orig, bm0, bm1, bm2, bm3,
                  bm4, bm5, bm6, bm7,
                  bm8, bm9, bm10, bm11,
                  bm12, bm13, bm14;
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
