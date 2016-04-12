@@ -62,7 +62,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
         Drawable border = getResources().getDrawable(R.drawable.drawable);
 
-        tvArray = new TextView[4][4];
+        ivArray = new ImageView[4][4];
 
         for (int k = 0; k < 16; k++) {
             int ri = k / 4;    /* determine row and column index */
@@ -165,10 +165,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     @Override
     public void swapTiles(int r1, int c1, int r2, int c2) {
-        String lab1 = tvArray[r1][c1].getText().toString();
-        String lab2 = tvArray[r2][c2].getText().toString();
-        tvArray[r1][c1].setText(lab2);
-        tvArray[r2][c2].setText(lab1);
+        ImageView tmp = ivArray[r1][c1];
+        ivArray[r1][c1] = ivArray[r2][c2];
+        ivArray[r2][c2] = tmp;
     }
 
     @Override
