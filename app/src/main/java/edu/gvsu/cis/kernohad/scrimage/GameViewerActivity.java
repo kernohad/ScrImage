@@ -53,38 +53,22 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //call loadBitmap. pass url,height,width,context
-        int size = getDisplayWidth() - 100;
-        loadBitmap("https://source.unsplash.com/random/", size, size, getApplicationContext());
-
         gridLayout = (GridLayout) findViewById(R.id.grid_layout);
         gDetector = new GestureDetectorCompat(this, this);
 
         Drawable border = getResources().getDrawable(R.drawable.drawable);
-
+        ImageView hold = new ImageView(this);
         ivArray = new ImageView[4][4];
 
-        for (int k = 0; k < 16; k++) {
-            int ri = k / 4;    /* determine row and column index */
-            int ci = k % 4;
+        //fill ivArray with placeholder images
+        for(int i=0;i<4;i++)
+            for(int j=0;j<4;j++)
+                ivArray[i][j] = hold;
 
-            TextView mytext = new TextView(this);
+        //call loadBitmap. pass url,height,width,context
+        int size = getDisplayWidth() - 100;
+        loadBitmap("https://source.unsplash.com/random/", 1000, 1000, getApplicationContext());
 
-            tvArray[ri][ci] = mytext;
-
-            mytext.setText (String.valueOf(k));
-            mytext.setTextSize (52);   /* or use a number that works better for your device */
-            /* place the TextView at the desired row and column */
-            GridLayout.Spec r_spec = GridLayout.spec (ri, GridLayout.CENTER);
-            GridLayout.Spec c_spec = GridLayout.spec (ci, GridLayout.CENTER);
-            GridLayout.LayoutParams par = new GridLayout.LayoutParams (r_spec, c_spec);
-            // add the following immediately before the addView call
-            par.setGravity(Gravity.FILL_HORIZONTAL);
-            gridLayout.addView(mytext, par);
-            mytext.setBackground(border);
-            mytext.setGravity(Gravity.CENTER_HORIZONTAL);
-            mytext.setWidth(300);    // or any number of pixels that work for your device
-        }
 
         presenter = new Presenter();
         presenter.onAttachView(this);
@@ -172,12 +156,12 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     @Override
     public void redrawTiles(int[][] arr) {
-        for (int k = 0; k < arr.length; k++)
-            for (int m = 0; m < arr[k].length; m++)
-                if (arr[k][m] != 0)
-                    tvArray[k][m].setText(String.valueOf(arr[k][m]));
-                else
-                    tvArray[k][m].setText("");
+//        for (int k = 0; k < arr.length; k++)
+//            for (int m = 0; m < arr[k].length; m++)
+//                if (arr[k][m] != 0)
+//                    tvArray[k][m].setText(String.valueOf(arr[k][m]));
+//                else
+//                    tvArray[k][m].setText("");
     }
 
     @Override
@@ -188,33 +172,6 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     public int getDisplayWidth(){
         DisplayMetrics metrics = new DisplayMetrics();
         return metrics.widthPixels;
-    }
-
-    public void splitImage(Bitmap img)
-    {
-        int wSub, hSub;
-        orig = img;
-        wSub = orig.getWidth() / 4;
-        hSub = orig.getHeight() / 4;
-        //1st row
-        ivArray[0][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 0, wSub, hSub));
-        ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, 2 * wSub, hSub));
-        ivArray[0][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 0, 3 * wSub, hSub));
-        ivArray[0][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 0, 4 * wSub, hSub));
-        //2nd row
-        ivArray[1][0].setImageBitmap(Bitmap.createBitmap(orig, 0, hSub, wSub, 2 * hSub));
-        ivArray[1][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, hSub, 2 * wSub, 2 * hSub));
-        ivArray[1][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, hSub, 3 * wSub, 2 * hSub));
-        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, hSub, 4 * wSub, 2 * hSub));
-        //3rd roW
-        ivArray[2][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, 3 * hSub));
-        ivArray[2][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 2 * hSub, 2 * wSub, 3 * hSub));
-        ivArray[2][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, 3 * wSub, 3 * hSub));
-        ivArray[2][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, 4 * wSub, 3 * hSub));
-        //4th row
-        ivArray[3][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, 4 * hSub));
-        ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, 2 * wSub, 4 * hSub));
-        ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, 3 * wSub, 4 * hSub));
     }
 
     public void loadBitmap(String url, int x, int y, Context context){
@@ -240,5 +197,52 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                 .memoryPolicy(MemoryPolicy.NO_CACHE)
                 .networkPolicy(NetworkPolicy.NO_CACHE)
                 .into(loadTarget);
+    }
+
+    private void splitImage(Bitmap img)
+    {
+        int wSub, hSub;
+        orig = img;
+        wSub = 1000 / 4;
+        hSub = 1000 / 4;
+        //1st row
+        ivArray[0][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 0, wSub, hSub));
+        ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, 2 * wSub, hSub));
+        ivArray[0][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 0, 3 * wSub, hSub));
+        ivArray[0][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 0, 4 * wSub, hSub));
+        //2nd row
+        ivArray[1][0].setImageBitmap(Bitmap.createBitmap(orig, 0, hSub, wSub, 2 * hSub));
+        ivArray[1][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, hSub, 2 * wSub, 2 * hSub));
+        ivArray[1][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, hSub, 3 * wSub, 2 * hSub));
+        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, hSub, 4 * wSub, 2 * hSub));
+        //3rd roW
+        ivArray[2][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, 3 * hSub));
+        ivArray[2][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 2 * hSub, 2 * wSub, 3 * hSub));
+        ivArray[2][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, 3 * wSub, 3 * hSub));
+        ivArray[2][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, 4 * wSub, 3 * hSub));
+        //4th row
+        ivArray[3][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, 4 * hSub));
+        ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, 2 * wSub, 4 * hSub));
+        ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, 3 * wSub, 4 * hSub));
+
+        drawGrid();
+    }
+
+    private void drawGrid(){
+        for (int k = 0; k < 16; k++) {
+            int ri = k / 4;    /* determine row and column index */
+            int ci = k % 4;
+
+            ImageView myimage = new ImageView(this);
+
+            ivArray[ri][ci] = myimage;
+
+            GridLayout.Spec r_spec = GridLayout.spec (ri, GridLayout.CENTER);
+            GridLayout.Spec c_spec = GridLayout.spec (ci, GridLayout.CENTER);
+            GridLayout.LayoutParams par = new GridLayout.LayoutParams (r_spec, c_spec);
+            // add the following immediately before the addView call
+            par.setGravity(Gravity.FILL_HORIZONTAL);
+            gridLayout.addView(myimage, par);
+        }
     }
 }
