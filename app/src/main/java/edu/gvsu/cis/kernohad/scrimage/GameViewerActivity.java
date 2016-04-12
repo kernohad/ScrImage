@@ -169,11 +169,6 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                     tvArray[k][m].setText("");
     }
 
-    /*
-    for(int i=0, i<15;i++){
-        splitImage(orig, i);
-     */
-
     @Override
     public void showMessage(String msg) {
 
@@ -185,11 +180,6 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     }
 
     public void splitImage(Bitmap img)
-            /*
-            parameter: an int to tell the function which bitmap to return.
-            Sugg.:  Use a loop from 0 to 14 to "paint" each returned bitmap to
-                    the 2d array of ImageView.
-            */
     {
         int wSub, hSub;
         orig = img;
