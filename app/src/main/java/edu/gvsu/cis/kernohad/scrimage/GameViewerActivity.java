@@ -1,5 +1,6 @@
 package edu.gvsu.cis.kernohad.scrimage;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -21,12 +22,20 @@ import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+
+
 public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView{
 
     GridLayout gridLayout;
     GestureDetectorCompat gDetector;
     IPresenter  presenter;
     TextView[][] tvArray;
+    Target loadTarget;
     Bitmap orig, bm0, bm1, bm2, bm3,
                  bm4, bm5, bm6, bm7,
                  bm8, bm9, bm10, bm11,
@@ -72,6 +81,13 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
             mytext.setBackground(border);
             mytext.setGravity(Gravity.CENTER_HORIZONTAL);
             mytext.setWidth(300);    // or any number of pixels that work for your device
+
+
+            //calls loadBitmap passing url, width and height, and application context
+            int size = getDisplayWidth() - 100;
+
+            loadBitmap("https://source.unsplash.com/random/", size, size, getApplicationContext());
+
         }
 
         presenter = new Presenter();
@@ -186,23 +202,49 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         wSub = orig.getWidth() / 4;
         hSub = orig.getHeight() / 4;
         //1st row
-        ivArray[0][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 0, wSub, hSub));
-        ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, 2 * wSub, hSub));
-        ivArray[0][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 0, 3 * wSub, hSub));
-        ivArray[0][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 0, 4 * wSub, hSub));
+        bm0  = Bitmap.createBitmap(orig, 0, 0, wSub, hSub);
+        bm1  = Bitmap.createBitmap(orig, wSub, 0, 2 * wSub, hSub);
+        bm2  = Bitmap.createBitmap(orig, 2 * wSub, 0, 3 * wSub, hSub);
+        bm3  = Bitmap.createBitmap(orig, 3 * wSub, 0, 4 * wSub, hSub);
         //2nd row
-        ivArray[1][0].setImageBitmap(Bitmap.createBitmap(orig, 0, hSub, wSub, 2 * hSub));
-        ivArray[1][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, hSub, 2 * wSub, 2 * hSub));
-        ivArray[1][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, hSub, 3 * wSub, 2 * hSub));
-        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, hSub, 4 * wSub, 2 * hSub));
+        bm4  = Bitmap.createBitmap(orig, 0, hSub, wSub, 2 * hSub);
+        bm5  = Bitmap.createBitmap(orig, wSub, hSub, 2 * wSub, 2 * hSub);
+        bm6  = Bitmap.createBitmap(orig, 2 * wSub, hSub, 3 * wSub, 2 * hSub);
+        bm7  = Bitmap.createBitmap(orig, 3 * wSub, hSub, 4 * wSub, 2 * hSub);
         //3rd roW
-        ivArray[2][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, 3 * hSub));
-        ivArray[2][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 2 * hSub, 2 * wSub, 3 * hSub));
-        ivArray[2][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, 3 * wSub, 3 * hSub));
-        ivArray[2][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, 4 * wSub, 3 * hSub));
+        bm8  = Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, 3 * hSub);
+        bm9  = Bitmap.createBitmap(orig, wSub, 2 * hSub, 2 * wSub, 3 * hSub);
+        bm10 = Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, 3 * wSub, 3 * hSub);
+        bm11 = Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, 4 * wSub, 3 * hSub);
         //4th row
-        ivArray[3][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, 4 * hSub));
-        ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, 2 * wSub, 4 * hSub));
-        ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, 3 * wSub, 4 * hSub));
+        bm12 = Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, 4 * hSub);
+        bm13 = Bitmap.createBitmap(orig, wSub, 3 * hSub, 2 * wSub, 4 * hSub);
+        bm14 = Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, 3 * wSub, 4 * hSub);
+    }
+
+    public void loadBitmap(String url, int x, int y, Context context){
+        if (loadTarget == null)loadTarget = new Target(){
+
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                splitImage(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+
+        Picasso.with(context).load(url)
+                .resize(x,y)
+                .memoryPolicy(MemoryPolicy.NO_CACHE)
+                .networkPolicy(NetworkPolicy.NO_CACHE)
+                .into(loadTarget);
     }
 }
