@@ -207,23 +207,23 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         hSub = 1000 / 4;
         //1st row
         ivArray[0][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 0, wSub, hSub));
-        ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, 2 * wSub, hSub));
-        ivArray[0][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 0, 3 * wSub, hSub));
-        ivArray[0][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 0, 4 * wSub, hSub));
+        ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, wSub, hSub));
+        ivArray[0][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 0, wSub, hSub));
+        ivArray[0][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 0, wSub, hSub));
         //2nd row
-        ivArray[1][0].setImageBitmap(Bitmap.createBitmap(orig, 0, hSub, wSub, 2 * hSub));
-        ivArray[1][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, hSub, 2 * wSub, 2 * hSub));
-        ivArray[1][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, hSub, 3 * wSub, 2 * hSub));
-        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, hSub, 4 * wSub, 2 * hSub));
+        ivArray[1][0].setImageBitmap(Bitmap.createBitmap(orig, 0, hSub, wSub, hSub));
+        ivArray[1][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, hSub, wSub, hSub));
+        ivArray[1][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, hSub, wSub, hSub));
+        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, hSub, wSub, hSub));
         //3rd roW
-        ivArray[2][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, 3 * hSub));
-        ivArray[2][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 2 * hSub, 2 * wSub, 3 * hSub));
-        ivArray[2][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, 3 * wSub, 3 * hSub));
-        ivArray[2][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, 4 * wSub, 3 * hSub));
+        ivArray[2][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, hSub));
+        ivArray[2][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 2 * hSub, wSub, hSub));
+        ivArray[2][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, wSub, hSub));
+        ivArray[2][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, wSub, hSub));
         //4th row
-        ivArray[3][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, 4 * hSub));
-        ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, 2 * wSub, 4 * hSub));
-        ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, 3 * wSub, 4 * hSub));
+        ivArray[3][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, hSub));
+        ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, wSub, hSub));
+        ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, wSub, hSub));
 
         drawGrid();
     }
