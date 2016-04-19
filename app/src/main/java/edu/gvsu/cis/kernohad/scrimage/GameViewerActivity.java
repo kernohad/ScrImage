@@ -219,26 +219,26 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         wSub = size / 4;
         hSub = size / 4;
         //1st row
-        bm[0] = Bitmap.createBitmap(orig, 0, 0, wSub, hSub);
-        bm[1] = Bitmap.createBitmap(orig, wSub, 0, wSub, hSub);
-        bm[2] = Bitmap.createBitmap(orig, 2 * wSub, 0, wSub, hSub);
-        bm[3] = Bitmap.createBitmap(orig, 3 * wSub, 0, wSub, hSub);
+        bm[1] = Bitmap.createBitmap(orig, 0, 0, wSub, hSub);
+        bm[2] = Bitmap.createBitmap(orig, wSub, 0, wSub, hSub);
+        bm[3] = Bitmap.createBitmap(orig, 2 * wSub, 0, wSub, hSub);
+        bm[4] = Bitmap.createBitmap(orig, 3 * wSub, 0, wSub, hSub);
         //2nd row
-        bm[4] = Bitmap.createBitmap(orig, 0, hSub, wSub, hSub);
-        bm[5] = Bitmap.createBitmap(orig, wSub, hSub, wSub, hSub);
-        bm[6] = Bitmap.createBitmap(orig, 2 * wSub, hSub, wSub, hSub);
-        bm[7] = Bitmap.createBitmap(orig, 3 * wSub, hSub, wSub, hSub);
+        bm[5] = Bitmap.createBitmap(orig, 0, hSub, wSub, hSub);
+        bm[6] = Bitmap.createBitmap(orig, wSub, hSub, wSub, hSub);
+        bm[7] = Bitmap.createBitmap(orig, 2 * wSub, hSub, wSub, hSub);
+        bm[8] = Bitmap.createBitmap(orig, 3 * wSub, hSub, wSub, hSub);
         //3rd roW
-        bm[8] = Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, hSub);
-        bm[9] = Bitmap.createBitmap(orig, wSub, 2 * hSub, wSub, hSub);
-        bm[10] = Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, wSub, hSub);
-        bm[11] = Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, wSub, hSub);
+        bm[9] = Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, hSub);
+        bm[10] = Bitmap.createBitmap(orig, wSub, 2 * hSub, wSub, hSub);
+        bm[11] = Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, wSub, hSub);
+        bm[12] = Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, wSub, hSub);
         //4th row
-        bm[12] = Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, hSub);
-        bm[13] = Bitmap.createBitmap(orig, wSub, 3 * hSub, wSub, hSub);
-        bm[14] = Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, wSub, hSub);
+        bm[13] = Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, hSub);
+        bm[14] = Bitmap.createBitmap(orig, wSub, 3 * hSub, wSub, hSub);
+        bm[15] = Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, wSub, hSub);
 
-        //drawGrid();
+        presenter.onRandomizeTiles();
     }
 
     private void drawGrid(){
