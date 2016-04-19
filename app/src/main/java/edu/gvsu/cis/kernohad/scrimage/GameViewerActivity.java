@@ -23,6 +23,7 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
@@ -170,7 +171,12 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     @Override
     public void showMessage(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public Bitmap getOrig(){
+        return orig;
     }
 
     public int getDisplayWidth(){
