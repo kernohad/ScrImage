@@ -161,9 +161,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         for (int k = 0; k < arr.length; k++)
             for (int m = 0; m < arr[k].length; m++)
                 if (arr[k][m] != 0)
-                    ivArray[k][m].setImageBitmap(bm[arr[k][m]);
-                else
+                    ivArray[k][m].setImageBitmap(bm[arr[k][m]]);
+                else {
                     ivArray[k][m].setImageDrawable(null);
+                }
 
     }
 
