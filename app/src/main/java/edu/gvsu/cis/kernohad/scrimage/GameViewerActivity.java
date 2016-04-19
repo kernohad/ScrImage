@@ -35,10 +35,8 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     GestureDetectorCompat gDetector;
     IPresenter  presenter;
     ImageView[][] ivArray;
-    Bitmap orig, bm0, bm1, bm2, bm3,
-                 bm4, bm5, bm6, bm7,
-                 bm8, bm9, bm10, bm11,
-                 bm12, bm13, bm14;
+    Bitmap orig;
+    Bitmap[] bm = new Bitmap[15];
     Target loadTarget;
     int size;
 
@@ -219,24 +217,24 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         wSub = size / 4;
         hSub = size / 4;
         //1st row
-        ivArray[0][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 0, wSub, hSub));
-        ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, wSub, hSub));
-        ivArray[0][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 0, wSub, hSub));
-        ivArray[0][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 0, wSub, hSub));
+        bm[0] = Bitmap.createBitmap(orig, 0, 0, wSub, hSub);
+        bm[1] = Bitmap.createBitmap(orig, wSub, 0, wSub, hSub);
+        bm[2] = Bitmap.createBitmap(orig, 2 * wSub, 0, wSub, hSub);
+        bm[3] = Bitmap.createBitmap(orig, 3 * wSub, 0, wSub, hSub);
         //2nd row
-        ivArray[1][0].setImageBitmap(Bitmap.createBitmap(orig, 0, hSub, wSub, hSub));
-        ivArray[1][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, hSub, wSub, hSub));
-        ivArray[1][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, hSub, wSub, hSub));
-        ivArray[1][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, hSub, wSub, hSub));
+        bm[4] = Bitmap.createBitmap(orig, 0, hSub, wSub, hSub);
+        bm[5] = Bitmap.createBitmap(orig, wSub, hSub, wSub, hSub);
+        bm[6] = Bitmap.createBitmap(orig, 2 * wSub, hSub, wSub, hSub);
+        bm[7] = Bitmap.createBitmap(orig, 3 * wSub, hSub, wSub, hSub);
         //3rd roW
-        ivArray[2][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, hSub));
-        ivArray[2][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 2 * hSub, wSub, hSub));
-        ivArray[2][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, wSub, hSub));
-        ivArray[2][3].setImageBitmap(Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, wSub, hSub));
+        bm[8] = Bitmap.createBitmap(orig, 0, 2 * hSub, wSub, hSub);
+        bm[9] = Bitmap.createBitmap(orig, wSub, 2 * hSub, wSub, hSub);
+        bm[10] = Bitmap.createBitmap(orig, 2 * wSub, 2 * hSub, wSub, hSub);
+        bm[11] = Bitmap.createBitmap(orig, 3 * wSub, 2 * hSub, wSub, hSub);
         //4th row
-        ivArray[3][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, hSub));
-        ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, wSub, hSub));
-        ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, wSub, hSub));
+        bm[12] = Bitmap.createBitmap(orig, 0, 3 * hSub, wSub, hSub);
+        bm[13] = Bitmap.createBitmap(orig, wSub, 3 * hSub, wSub, hSub);
+        bm[14] = Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, wSub, hSub);
 
         //drawGrid();
     }

@@ -13,11 +13,11 @@
     tools:showIn="@layout/activity_game_viewer">
 
     <GridLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="400dp"
         android:id="@+id/grid_layout"
-        android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"></GridLayout>
+        android:columnCount="4"
+        android:rowCount="4"></GridLayout>
 
 
 </RelativeLayout>
