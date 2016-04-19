@@ -160,12 +160,13 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     @Override
     public void redrawTiles(int[][] arr) {
-//        for (int k = 0; k < arr.length; k++)
-//            for (int m = 0; m < arr[k].length; m++)
-//                if (arr[k][m] != 0)
-//                    tvArray[k][m].setText(String.valueOf(arr[k][m]));
-//                else
-//                    tvArray[k][m].setText("");
+        for (int k = 0; k < arr.length; k++)
+            for (int m = 0; m < arr[k].length; m++)
+                if (arr[k][m] != 0)
+                    ivArray[k][m].setImageBitmap(bm[arr[k][m]);
+                else
+                    //ivArray[k][m].setImageDrawable(null);
+
     }
 
     @Override
