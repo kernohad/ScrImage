@@ -12,6 +12,7 @@ public class Cell implements Comparable<Cell> {
     public int row, column, value;
 
 
+
     public Cell()
     {
         this(0,0,0);

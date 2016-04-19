@@ -152,9 +152,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     @Override
     public void swapTiles(int r1, int c1, int r2, int c2) {
-        ImageView tmp = ivArray[r1][c1];
-        ivArray[r1][c1] = ivArray[r2][c2];
-        ivArray[r2][c2] = tmp;
+        Drawable tmp = ivArray[r1][c1].getDrawable();
+        Drawable tmp2 = ivArray[r2][c2].getDrawable();
+        ivArray[r1][c1].setImageDrawable(tmp2);
+        ivArray[r2][c2].setImageDrawable(tmp);
     }
 
     @Override
