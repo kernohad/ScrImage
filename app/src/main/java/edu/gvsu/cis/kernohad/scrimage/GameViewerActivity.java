@@ -3,6 +3,7 @@ package edu.gvsu.cis.kernohad.scrimage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.Menu;
@@ -38,6 +40,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                  bm8, bm9, bm10, bm11,
                  bm12, bm13, bm14;
     Target loadTarget;
+    int size;
 
 
     @Override
@@ -66,8 +69,8 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                 ivArray[i][j] = hold;
 
         //call loadBitmap. pass url,height,width,context
-        int size = getDisplayWidth() - 100;
-        loadBitmap("https://source.unsplash.com/random/", 1000, 1000, getApplicationContext());
+        size = getDisplayWidth() - 100;
+        loadBitmap("https://source.unsplash.com/random/", size, size, getApplicationContext());
 
 
         presenter = new Presenter();
@@ -170,8 +173,14 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     }
 
     public int getDisplayWidth(){
-        DisplayMetrics metrics = new DisplayMetrics();
-        return metrics.widthPixels;
+        //DisplayMetrics metrics = new DisplayMetrics();
+        //return metrics.widthPixels;
+
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        return width;
     }
 
     public void loadBitmap(String url, int x, int y, Context context){
@@ -201,10 +210,13 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     private void splitImage(Bitmap img)
     {
+
+        drawGrid();
+
         int wSub, hSub;
         orig = img;
-        wSub = 1000 / 4;
-        hSub = 1000 / 4;
+        wSub = size / 4;
+        hSub = size / 4;
         //1st row
         ivArray[0][0].setImageBitmap(Bitmap.createBitmap(orig, 0, 0, wSub, hSub));
         ivArray[0][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 0, wSub, hSub));
@@ -225,7 +237,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         ivArray[3][1].setImageBitmap(Bitmap.createBitmap(orig, wSub, 3 * hSub, wSub, hSub));
         ivArray[3][2].setImageBitmap(Bitmap.createBitmap(orig, 2 * wSub, 3 * hSub, wSub, hSub));
 
-        drawGrid();
+        //drawGrid();
     }
 
     private void drawGrid(){
