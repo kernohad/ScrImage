@@ -36,7 +36,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     IPresenter  presenter;
     ImageView[][] ivArray;
     Bitmap orig;
-    Bitmap[] bm = new Bitmap[15];
+    Bitmap[] bm = new Bitmap[16];
     Target loadTarget;
     int size;
 
