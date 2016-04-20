@@ -16,8 +16,33 @@
         android:layout_width="fill_parent"
         android:layout_height="400dp"
         android:id="@+id/grid_layout"
-        android:columnCount="4"
-        android:rowCount="4"></GridLayout>
+        android:columnCount="8"
+        android:rowCount="6">
+
+    </GridLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scramble"
+        android:id="@+id/scramble_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="34dp"
+        android:layout_marginStart="34dp"
+        android:layout_below="@+id/grid_layout"
+        android:layout_alignBottom="@+id/new_image_button" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Image"
+        android:id="@+id/new_image_button"
+        android:layout_marginRight="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_below="@+id/grid_layout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

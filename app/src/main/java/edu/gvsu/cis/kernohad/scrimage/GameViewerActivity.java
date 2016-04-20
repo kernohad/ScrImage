@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView{
+public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView, View.OnClickListener{
 
     GridLayout gridLayout;
     GestureDetectorCompat gDetector;
@@ -57,6 +58,15 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
         gridLayout = (GridLayout) findViewById(R.id.grid_layout);
         gDetector = new GestureDetectorCompat(this, this);
+
+        //************** Implement OnClick for buttons **************************
+
+        Button newImageButton = (Button) findViewById(R.id.new_image_button);
+        newImageButton.setOnClickListener(this);
+        Button scrambleButton = (Button) findViewById(R.id.scramble_button);
+        scrambleButton.setOnClickListener(this);
+
+        //**********************************************************************
 
         Drawable border = getResources().getDrawable(R.drawable.drawable);
         ImageView hold = new ImageView(this);
@@ -160,13 +170,13 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     @Override
     public void redrawTiles(int[][] arr) {
         for (int k = 0; k < arr.length; k++)
-            for (int m = 0; m < arr[k].length; m++)
+            for (int m = 0; m < arr[k].length; m++) {
                 if (arr[k][m] != 0)
                     ivArray[k][m].setImageBitmap(bm[arr[k][m]]);
                 else {
                     ivArray[k][m].setImageDrawable(null);
                 }
-
+            }
     }
 
     @Override
@@ -262,6 +272,21 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
             // add the following immediately before the addView call
             par.setGravity(Gravity.FILL_HORIZONTAL);
             gridLayout.addView(myimage, par);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.new_image_button:
+                // Close activity and start new one
+                recreate();
+                break;
+            case R.id.scramble_button:
+                // Scrambles tiles
+                presenter.onRandomizeTiles();
+                break;
         }
     }
 }
