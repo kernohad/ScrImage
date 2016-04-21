@@ -66,6 +66,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        // ******************* Commented out to remove FAB *****************************
+
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,6 +84,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                         // add other APIs and scopes here as needed
                 .build();
+        });*/
+
+        //*******************************************************************************
     }
 
     @Override

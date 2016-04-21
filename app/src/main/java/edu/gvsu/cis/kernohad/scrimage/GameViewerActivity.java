@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,18 +12,25 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +42,7 @@ import com.squareup.picasso.Target;
 public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView, View.OnClickListener{
 
     GridLayout gridLayout;
+    RelativeLayout relativeLayout;
     GestureDetectorCompat gDetector;
     IPresenter  presenter;
     ImageView[][] ivArray;
@@ -41,6 +50,11 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     Bitmap[] bm = new Bitmap[16];
     Target loadTarget;
     int size;
+
+    private PopupWindow popupWindow;
+    private LayoutInflater layoutInflater;
+    private ImageView popup;
+
 
 
     @Override
@@ -58,6 +72,8 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
         gridLayout = (GridLayout) findViewById(R.id.grid_layout);
         gDetector = new GestureDetectorCompat(this, this);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relative);
+
 
         //************** Implement OnClick for buttons **************************
 
@@ -85,15 +101,45 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         presenter = new Presenter();
         presenter.onAttachView(this);
 
+
+        //****************************** POP-UP****************************************************
+
+        popup = hold;
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        assert fab != null;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+                ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popup,null);
+
+                popup = (ImageView) container.findViewById(R.id.popup_imageView);
+                popup.setImageBitmap(orig);
+
+                // magic numbers are the size of the window
+                popupWindow = new PopupWindow(container, 1320, 1350, true );
+
+                //Magic numbers are the location on the screen
+                popupWindow.showAtLocation(gridLayout, Gravity.NO_GRAVITY, 60, 380 );
+
+               /* container.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        popupWindow.dismiss();
+                        return true;
+                    }
+                });*/
+                {
+
+
+                }
             }
-        });
+        }
+        );
     }
+    //***********************************************************************************************************
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,8 +217,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     public void redrawTiles(int[][] arr) {
         for (int k = 0; k < arr.length; k++)
             for (int m = 0; m < arr[k].length; m++) {
-                if (arr[k][m] != 0)
+                if (arr[k][m] != 0) {
                     ivArray[k][m].setImageBitmap(bm[arr[k][m]]);
+                }
                 else {
                     ivArray[k][m].setImageDrawable(null);
                 }
@@ -227,7 +274,6 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     private void splitImage(Bitmap img)
     {
-
         drawGrid();
 
         int wSub, hSub;
@@ -264,6 +310,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
             ImageView myimage = new ImageView(this);
 
+            // ************ This line clears the previous image **********
+            ivArray[ri][ci].setImageResource(0);
+            //************************************************************
+
             ivArray[ri][ci] = myimage;
 
             GridLayout.Spec r_spec = GridLayout.spec (ri, GridLayout.CENTER);
@@ -280,8 +330,8 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
         switch (v.getId()){
             case R.id.new_image_button:
-                // Close activity and start new one
-                recreate();
+                // Calls loadBitmap to load a new image
+                loadBitmap("https://source.unsplash.com/random/", size, size, getApplicationContext());
                 break;
             case R.id.scramble_button:
                 // Scrambles tiles
