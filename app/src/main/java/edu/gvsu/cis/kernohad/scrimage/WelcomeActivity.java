@@ -22,7 +22,7 @@ import com.google.example.games.basegameutils.BaseGameUtils;
 
 
 
-public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener, Freezable<Leaderboard>,GoogleApiClient.ConnectionCallbacks,
+public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private Button play;
@@ -58,11 +58,11 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         leaderboard.setOnClickListener(this);
 
         //Instatiate the sign in and out buttons
-//        signIn = (Button) findViewById(R.id.signInButton);
-//        signIn.setOnClickListener(this);
-//
-//        signOut = (Button) findViewById(R.id.signOutButton);
-//        signOut.setOnClickListener(this);
+        signIn = (Button) findViewById(R.id.signInButton);
+        signIn.setOnClickListener(this);
+
+        signOut = (Button) findViewById(R.id.signOutButton);
+        signOut.setOnClickListener(this);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -77,6 +77,11 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             }
         });**/
 
+
+        //});
+
+        //*******************************************************************************
+
         // Create the Google Api Client with access to the Play Games services
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
@@ -84,9 +89,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                         // add other APIs and scopes here as needed
                 .build();
-        //});
-
-        //*******************************************************************************
     }
 
     @Override
@@ -120,34 +122,30 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 Intent launchViewer = new Intent(WelcomeActivity.this, GameViewerActivity.class);
                 startActivity(launchViewer);
                 break;
-            case R.id.lbButton:
-                // creates and opens leaderboard
-               // startActivityForResult(Games.Leaderboards.getLeaderboardIntent(mGoogleApiClient,
-                 //       LEADERBOARD_ID), REQUEST_LEADERBOARD);
+            case R.id.signInButton:
+                // start the asynchronous sign in flow
+                mSignInClicked = true;
+                mGoogleApiClient.connect();
+
+                // show sign-out button, hide the sign-in button
+                signOut.setVisibility(View.VISIBLE);
+                signIn.setVisibility(View.GONE);
                 break;
-//            case R.id.signInButton:
-//                //starts the async flow for sign in
-//                mSignInClicked = true;
-//                mGoogleApiClient.connect();
-//                mInSignInFlow = true;
-//
-//                // show sign-out button, hide the sign-in button
-//                signOut.setVisibility(View.VISIBLE);
-//                signIn.setVisibility(View.GONE);
-//                break;
-//            case R.id.signOutButton:
-//                // sign out
-//
-//                mExplicitSignOut = true;
-//                if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
-//                    Games.signOut(mGoogleApiClient);
-//                    mGoogleApiClient.disconnect();
-//                }
-//
-//                // show sign-in button, hide the sign-out button
-//                signIn.setVisibility(View.VISIBLE);
-//                signOut.setVisibility(View.GONE);
-//                break;
+            case R.id.signOutButton:
+                if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                    mSignInClicked = false;
+                    Games.signOut(mGoogleApiClient);
+
+                    // show sign-in button, hide the sign-out button
+                    signIn.setVisibility(View.VISIBLE);
+                    signOut.setVisibility(View.GONE);
+                }
+
+
+                // show sign-in button, hide the sign-out button
+                //signIn.setVisibility(View.VISIBLE);
+                //signOut.setVisibility(View.GONE);
+                break;
         }
 
     }
@@ -162,7 +160,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         super.onStart();
         if (!mInSignInFlow && !mExplicitSignOut) {
             // auto sign in
-            mGoogleApiClient.connect();
+            //mGoogleApiClient.connect();
         }
     }
 
@@ -172,25 +170,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         mGoogleApiClient.disconnect();
     }
 
-    @Override
-    public Leaderboard freeze() {
-        return null;
-    }
-
-    @Override
-    public boolean isDataValid() {
-        return false;
-    }
 
     @Override
     public void onConnected(Bundle bundle) {
         // show sign-out button, hide the sign-in button
-        signIn.setVisibility(View.GONE);
-        signOut.setVisibility(View.VISIBLE);
-
-        //test to see if onConnected is ever reached
-        Intent launchViewer = new Intent(WelcomeActivity.this, GameViewerActivity.class);
-        startActivity(launchViewer);
+      //  signIn.setVisibility(View.GONE);
+       // signOut.setVisibility(View.VISIBLE);
 
         // (your code here: update UI, enable functionality that depends on sign in, etc)
     }

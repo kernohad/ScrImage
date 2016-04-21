@@ -10,7 +10,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="edu.gvsu.cis.kernohad.scrimage.WelcomeActivity"
-    tools:showIn="@layout/activity_welcome">
+    tools:showIn="@layout/activity_welcome"
+    android:background="#595656">
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,5 +38,22 @@
         android:id="@+id/lbButton"
         android:layout_below="@+id/play_button"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:id="@+id/signInButton"
+        android:layout_below="@+id/lbButton"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Out"
+        android:id="@+id/signOutButton"
+        android:layout_below="@+id/signInButton"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -2,14 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="visible">
+    android:visibility="visible"
+    android:background="#595656">
 
     <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/popup_imageView"
-        android:layout_gravity="center_horizontal"
         android:visibility="visible"
-        android:contentDescription="@string/popup" />
+        android:contentDescription="@string/popup"
+        android:layout_gravity="center"
+        android:focusable="false"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="50dp" />
 
 </LinearLayout>

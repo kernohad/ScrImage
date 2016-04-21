@@ -3,6 +3,7 @@ package edu.gvsu.cis.kernohad.scrimage;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -118,10 +119,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                 popup.setImageBitmap(orig);
 
                 // magic numbers are the size of the window
-                popupWindow = new PopupWindow(container, 1320, 1350, true );
+                popupWindow = new PopupWindow(container, size + 100, size + 700, true );
 
                 //Magic numbers are the location on the screen
-                popupWindow.showAtLocation(gridLayout, Gravity.NO_GRAVITY, 60, 380 );
+                popupWindow.showAtLocation(gridLayout, Gravity.NO_GRAVITY, 0,0);
 
                /* container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
