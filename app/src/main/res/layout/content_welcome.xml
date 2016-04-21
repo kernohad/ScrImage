@@ -29,4 +29,13 @@
         android:layout_below="@+id/welcome_title"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="183dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Leaderboard"
+        android:id="@+id/lbButton"
+        android:layout_below="@+id/play_button"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>
