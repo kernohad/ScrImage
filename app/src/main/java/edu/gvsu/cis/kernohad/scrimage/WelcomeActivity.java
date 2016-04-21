@@ -75,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });**/
 
         // Create the Google Api Client with access to the Play Games services
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -84,7 +84,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                         // add other APIs and scopes here as needed
                 .build();
-        });*/
+        //});
 
         //*******************************************************************************
     }
