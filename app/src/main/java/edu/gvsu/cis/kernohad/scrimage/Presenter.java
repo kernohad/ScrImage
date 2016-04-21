@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
@@ -35,7 +37,7 @@ public class Presenter implements  IPresenter {
     public void onSlide(SlideDirection dir) {
         Cell[] cells = game.moveIntoEmptySpot(dir);
 
-
+        view.addImageToFiles();
         if (cells == null)
             return;
 
@@ -49,26 +51,7 @@ public class Presenter implements  IPresenter {
 
         if (gameStatus == GameStatus.USER_WON) {
             view.showMessage("Congratulations! You Win! ");
-            addImageToGallery(view.getOrig());
-        }
-    }
-
-    public void addImageToGallery(Bitmap img){
-        File myDir = new File(Environment.DIRECTORY_PICTURES);
-        myDir.mkdirs();
-        Random gen = new Random();
-        int n = 10000;
-        n=gen.nextInt();
-        String fname = "Win-"+n+".jpg";
-        File file = new File(myDir,fname);
-        if(file.exists()) file.delete();
-        try{
-            FileOutputStream out = new FileOutputStream(file);
-            img.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            view.addImageToFiles();
         }
     }
 
