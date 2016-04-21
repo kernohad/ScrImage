@@ -171,8 +171,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     public void redrawTiles(int[][] arr) {
         for (int k = 0; k < arr.length; k++)
             for (int m = 0; m < arr[k].length; m++) {
-                if (arr[k][m] != 0)
+                if (arr[k][m] != 0) {
                     ivArray[k][m].setImageBitmap(bm[arr[k][m]]);
+                }
                 else {
                     ivArray[k][m].setImageDrawable(null);
                 }
@@ -227,7 +228,6 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     private void splitImage(Bitmap img)
     {
-
         drawGrid();
 
         int wSub, hSub;
@@ -264,6 +264,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
             ImageView myimage = new ImageView(this);
 
+            // ************ This line clears the previous image **********
+            ivArray[ri][ci].setImageResource(0);
+            //************************************************************
+
             ivArray[ri][ci] = myimage;
 
             GridLayout.Spec r_spec = GridLayout.spec (ri, GridLayout.CENTER);
@@ -280,8 +284,8 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
         switch (v.getId()){
             case R.id.new_image_button:
-                // Close activity and start new one
-                recreate();
+                // Calls loadBitmap to load a new image
+                loadBitmap("https://source.unsplash.com/random/", size, size, getApplicationContext());
                 break;
             case R.id.scramble_button:
                 // Scrambles tiles
