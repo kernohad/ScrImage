@@ -6,7 +6,9 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GestureDetectorCompat;
@@ -38,6 +40,10 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Random;
 
 public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView, View.OnClickListener{
 
@@ -231,11 +237,6 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public Bitmap getOrig(){
-        return orig;
-    }
-
     public int getDisplayWidth(){
         //DisplayMetrics metrics = new DisplayMetrics();
         //return metrics.widthPixels;
@@ -337,6 +338,34 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                 // Scrambles tiles
                 presenter.onRandomizeTiles();
                 break;
+        }
+    }
+
+    public void addImageToFiles(){
+        File myDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+"/Scrimage/");
+
+        Random gen = new Random();
+        int n = 10000;
+        n=Math.abs(gen.nextInt());
+        String fname = "Win"+n+".jpg";
+
+        boolean dir = myDir.mkdirs();
+        File imageFile = new File(myDir, fname);
+        //if(imageFile.exists()) imageFile.delete();
+        try{
+            imageFile.createNewFile();
+            FileOutputStream out = new FileOutputStream(imageFile,true);
+            orig.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.flush();
+            out.close();
+
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            File f = new File("file:"+imageFile.getAbsolutePath());
+            Uri contentUri = Uri.fromFile(f);
+            mediaScanIntent.setData(contentUri);
+            this.sendBroadcast(mediaScanIntent);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
