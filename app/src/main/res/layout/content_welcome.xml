@@ -39,7 +39,7 @@
         android:layout_below="@+id/play_button"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <com.google.android.gms.common.SignInButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sign In"
@@ -54,6 +54,6 @@
         android:id="@+id/signOutButton"
         android:layout_below="@+id/signInButton"
         android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </RelativeLayout>
