@@ -25,7 +25,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         GoogleApiClient.OnConnectionFailedListener {
 
     private Button play;
-    private Button leaderboard;
     private SignInButton signIn;
     private Button signOut;
 
@@ -50,10 +49,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         // Instantiate the play button
         play = (Button) findViewById(R.id.play_button);
         play.setOnClickListener(this);
-
-        //Instatiate the leaderboard button
-        leaderboard = (Button) findViewById(R.id.lbButton);
-        leaderboard.setOnClickListener(this);
 
         //Instatiate the sign in and out buttons
         signIn = (SignInButton) findViewById(R.id.signInButton);
@@ -125,9 +120,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 mSignInClicked = true;
                 mGoogleApiClient.connect();
 
-                // show sign-out button, hide the sign-in button
-              //  signOut.setVisibility(View.VISIBLE);
-               // signIn.setVisibility(View.GONE);
                 break;
             case R.id.signOutButton:
                 mSignInClicked = false;
@@ -150,23 +142,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         }
 
     }
-
-    /* Google Api Stuff */
-
-//    @Override
-//    protected void onStart() {
-////        super.onStart();
-////        mGoogleApiClient.connect();
-//
-//        super.onStart();
-////        Games.signOut(mGoogleApiClient);
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        mGoogleApiClient.disconnect();
-//    }
 
 
     @Override
@@ -208,20 +183,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             }else{
                 Snackbar.make(signOut, connectionResult.getErrorMessage(),Snackbar.LENGTH_LONG).show();
             }
-
-            // Attempt to resolve the connection failure using BaseGameUtils.
-            // The R.string.signin_other_error value should reference a generic
-            // error string in your strings.xml file, such as "There was
-            // an issue with sign in, please try again later."
-//            String errorString = getResources().getString(R.string.signin_other_error);
-//            if (!BaseGameUtils.resolveConnectionFailure(this,
-//                    mGoogleApiClient, connectionResult,
-//                    RC_SIGN_IN, errorString)) {
-//                mResolvingConnectionFailure = false;
-//            }
         }
-        // Put code here to display the sign-in button
-
     }
 
     @Override
