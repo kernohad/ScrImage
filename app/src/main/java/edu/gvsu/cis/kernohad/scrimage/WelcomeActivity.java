@@ -125,15 +125,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 mSignInClicked = false;
                 if (mGoogleApiClient.isConnected()) {
                     Games.signOut(mGoogleApiClient);
-
-
-                    // show sign-in button, hide the sign-out button
-                    signIn.setVisibility(View.VISIBLE);
-                    signOut.setVisibility(View.VISIBLE);
                 }
 
                 mGoogleApiClient.disconnect();
-
 
                 // show sign-in button, hide the sign-out button
                 signIn.setVisibility(View.VISIBLE);
@@ -188,7 +182,6 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == RC_SIGN_IN){
             if(mResolvingConnectionFailure) {
