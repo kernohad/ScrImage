@@ -146,6 +146,11 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
 
     @Override
     public void onConnected(Bundle bundle) {
@@ -220,17 +225,4 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public boolean isSignedIn(){
-        if(mGoogleApiClient != null && mGoogleApiClient.isConnected()){
-            return true;
-        }
-        return false;
-    }
-
-    public GoogleApiClient getClient(){
-        if(isSignedIn()){
-            return mGoogleApiClient;
-        }
-        return null;
-    }
 }
