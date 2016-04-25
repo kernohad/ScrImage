@@ -211,7 +211,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void unlockAchievement(int counter) {
-        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected() && counter > 0) {
             Games.Achievements.increment(mGoogleApiClient, getString(R.string.aBeg), counter);
             Games.Achievements.increment(mGoogleApiClient, getString(R.string.aInter), counter);
             Games.Achievements.increment(mGoogleApiClient, getString(R.string.aAdv), counter);

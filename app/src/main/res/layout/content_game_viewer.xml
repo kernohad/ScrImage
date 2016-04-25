@@ -19,7 +19,8 @@
         android:layout_height="400dp"
         android:id="@+id/grid_layout"
         android:columnCount="8"
-        android:rowCount="6">
+        android:rowCount="6"
+        android:layout_centerHorizontal="true">
 
     </GridLayout>
 
@@ -44,13 +45,15 @@
         android:layout_marginEnd="34dp"
         android:layout_below="@+id/grid_layout"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:nestedScrollingEnabled="false" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Finish"
+        android:text="Submit"
         android:id="@+id/finButton"
+        android:layout_alignWithParentIfMissing="false"
         android:layout_below="@+id/grid_layout"
         android:layout_toStartOf="@+id/new_image_button" />
 

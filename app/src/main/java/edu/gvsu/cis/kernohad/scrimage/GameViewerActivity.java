@@ -64,7 +64,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     private LayoutInflater layoutInflater;
     private ImageView popup;
     private Button finish;
-    private int puzzlesSolved = 0;
+    private int puzzlesSolved;
 
 
 
@@ -85,6 +85,8 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         gridLayout = (GridLayout) findViewById(R.id.grid_layout);
         gDetector = new GestureDetectorCompat(this, this);
         relativeLayout = (RelativeLayout) findViewById(R.id.relative);
+
+        puzzlesSolved = 0;
 
 
         //************** Implement OnClick for buttons **************************
@@ -351,10 +353,15 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                 presenter.onRandomizeTiles();
                 break;
             case R.id.finButton:
-                Intent passCounter = new Intent();
-                passCounter.putExtra("passingCounter", puzzlesSolved);
-                setResult(RESULT_OK, passCounter);
-                finish();
+
+                if(puzzlesSolved > 0) {
+                    Intent passCounter = new Intent();
+                    passCounter.putExtra("passingCounter", puzzlesSolved);
+                    setResult(RESULT_OK, passCounter);
+                    finish();
+                } else {
+                    Toast.makeText(this, "You didn't solve any puzzles", Toast.LENGTH_LONG).show();
+                }
                 break;
         }
     }
@@ -387,8 +394,4 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 }
