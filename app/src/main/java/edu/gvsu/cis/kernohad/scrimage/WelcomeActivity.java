@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
@@ -25,6 +26,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         GoogleApiClient.OnConnectionFailedListener {
 
     private Button play;
+    private Button ach;
     private SignInButton signIn;
     private Button signOut;
 
@@ -33,10 +35,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private static int RC_SIGN_IN = 9001;
     private boolean mResolvingConnectionFailure = false;
     private boolean mSignInClicked = false;
+    private int REQUEST_ACHIEVEMENTS = 123;
 
-    boolean mExplicitSignOut = false;
-    boolean mInSignInFlow = false;
-
+    private final int PUZZLES_SOLVED = 121;
 
 
     @Override
@@ -50,12 +51,16 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         play = (Button) findViewById(R.id.play_button);
         play.setOnClickListener(this);
 
-        //Instatiate the sign in and out buttons
+        //Instantiate the sign in and out buttons
         signIn = (SignInButton) findViewById(R.id.signInButton);
         signIn.setOnClickListener(this);
 
         signOut = (Button) findViewById(R.id.signOutButton);
         signOut.setOnClickListener(this);
+
+        //Instantiate the achievement button
+        ach = (Button) findViewById(R.id.achButton);
+        ach.setOnClickListener(this);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -113,7 +118,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.play_button:
                 // Creates and starts the game activity. Where the puzzle is.
                 Intent launchViewer = new Intent(WelcomeActivity.this, GameViewerActivity.class);
-                startActivity(launchViewer);
+                startActivityForResult(launchViewer, PUZZLES_SOLVED);
                 break;
             case R.id.signInButton:
                 // start the asynchronous sign in flow
@@ -133,6 +138,10 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 signIn.setVisibility(View.VISIBLE);
                 signOut.setVisibility(View.GONE);
                 break;
+            case R.id.achButton:
+                startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
+                        REQUEST_ACHIEVEMENTS);
+                break;
         }
 
     }
@@ -143,6 +152,9 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         // show sign-out button, hide the sign-in button
         signOut.setVisibility(View.VISIBLE);
         signIn.setVisibility(View.GONE);
+
+        //show achievements button
+        ach.setVisibility(View.VISIBLE);
 
         // (your code here: update UI, enable functionality that depends on sign in, etc)
     }
@@ -183,13 +195,42 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode == RC_SIGN_IN){
-            if(mResolvingConnectionFailure) {
+        if(requestCode == RC_SIGN_IN) {
+            if (mResolvingConnectionFailure) {
                 mResolvingConnectionFailure = false;
                 mGoogleApiClient.connect();
+            }
+        }else if (requestCode == PUZZLES_SOLVED){
+            if(data != null){
+                int counter = data.getIntExtra("passingCounter", 0);
+                unlockAchievement(counter);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void unlockAchievement(int counter) {
+        if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+            Games.Achievements.increment(mGoogleApiClient, getString(R.string.aBeg), counter);
+            Games.Achievements.increment(mGoogleApiClient, getString(R.string.aInter), counter);
+            Games.Achievements.increment(mGoogleApiClient, getString(R.string.aAdv), counter);
+            Games.Achievements.increment(mGoogleApiClient, getString(R.string.aExp), counter);
+            Games.Achievements.increment(mGoogleApiClient, getString(R.string.aGod), counter);
+        }
+    }
+
+    public boolean isSignedIn(){
+        if(mGoogleApiClient != null && mGoogleApiClient.isConnected()){
+            return true;
+        }
+        return false;
+    }
+
+    public GoogleApiClient getClient(){
+        if(isSignedIn()){
+            return mGoogleApiClient;
+        }
+        return null;
     }
 }

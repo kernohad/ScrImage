@@ -37,6 +37,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -61,6 +63,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     private PopupWindow popupWindow;
     private LayoutInflater layoutInflater;
     private ImageView popup;
+    private Button finish;
+    private int puzzlesSolved = 0;
+
 
 
 
@@ -88,6 +93,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         newImageButton.setOnClickListener(this);
         Button scrambleButton = (Button) findViewById(R.id.scramble_button);
         scrambleButton.setOnClickListener(this);
+
+        finish = (Button) findViewById(R.id.finButton);
+        finish.setOnClickListener(this);
 
         //**********************************************************************
 
@@ -236,6 +244,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     @Override
     public void showMessage(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+
+        puzzlesSolved += 1;
+
     }
 
     public int getDisplayWidth(){
@@ -339,6 +350,12 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
                 // Scrambles tiles
                 presenter.onRandomizeTiles();
                 break;
+            case R.id.finButton:
+                Intent passCounter = new Intent();
+                passCounter.putExtra("passingCounter", puzzlesSolved);
+                setResult(RESULT_OK, passCounter);
+                finish();
+                break;
         }
     }
 
@@ -368,5 +385,10 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

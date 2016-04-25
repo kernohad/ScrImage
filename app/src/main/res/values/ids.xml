@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_id">771624812704</string>
+    <string name="aBeg">CgkIoIGxw7oWEAIQAQ</string>
+    <string name="aInter">CgkIoIGxw7oWEAIQAg</string>
+    <string name="aAdv">CgkIoIGxw7oWEAIQAw</string>
+    <string name="aExp">CgkIoIGxw7oWEAIQBA</string>
+    <string name="aGod">CgkIoIGxw7oWEAIQBQ</string>
 </resources>
