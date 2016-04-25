@@ -26,6 +26,7 @@
         <activity
             android:name=".GameViewerActivity"
             android:label="@string/title_activity_game_viewer"
+            android:screenOrientation="portrait"
             android:parentActivityName=".WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
