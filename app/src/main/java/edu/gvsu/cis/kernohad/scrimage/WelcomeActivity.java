@@ -29,6 +29,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     private Button ach;
     private SignInButton signIn;
     private Button signOut;
+    private Toolbar toolbar;
 
     //google api stuff
     private GoogleApiClient mGoogleApiClient;
@@ -87,6 +88,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                         // add other APIs and scopes here as needed
                 .build();
+
+
+        //attempting toolbar remove title
+        toolbar =(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
     }
 
     @Override
