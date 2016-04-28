@@ -134,13 +134,14 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
                 mGoogleApiClient.disconnect();
 
-                // show sign-in button, hide the sign-out button
+                // show sign-in button, hide the sign-out and achievement buttons
                 signIn.setVisibility(View.VISIBLE);
                 signOut.setVisibility(View.GONE);
+                ach.setVisibility(View.GONE);
                 break;
             case R.id.achButton:
-                startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
-                        REQUEST_ACHIEVEMENTS);
+                    startActivityForResult(Games.Achievements.getAchievementsIntent(mGoogleApiClient),
+                            REQUEST_ACHIEVEMENTS);
                 break;
         }
 
@@ -155,12 +156,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onConnected(Bundle bundle) {
         // show sign-out button, hide the sign-in button
-        signOut.setVisibility(View.VISIBLE);
         signIn.setVisibility(View.GONE);
+
 
         //show achievements button
         ach.setVisibility(View.VISIBLE);
-
+        signOut.setVisibility(View.VISIBLE);
         // (your code here: update UI, enable functionality that depends on sign in, etc)
     }
 
