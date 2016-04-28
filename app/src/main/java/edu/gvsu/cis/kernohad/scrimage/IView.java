@@ -12,8 +12,5 @@ public interface IView {
     void swapTiles(int r1, int c1, int r2, int c2);
     void redrawTiles(int[][] arr);
     void showMessage(String msg);
-    //Bitmap getOrig();
     void addImageToFiles();
-    //File createImageFile() throws IOException;
-    //void galleryAddPic();
 }

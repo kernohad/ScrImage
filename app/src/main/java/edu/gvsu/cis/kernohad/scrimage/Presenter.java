@@ -37,13 +37,6 @@ public class Presenter implements  IPresenter {
     public void onSlide(SlideDirection dir) {
         Cell[] cells = game.moveIntoEmptySpot(dir);
 
-//        try {
-//            view.createImageFile();
-//            view.galleryAddPic();
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
         if (cells == null)
             return;
 
@@ -57,13 +50,7 @@ public class Presenter implements  IPresenter {
 
         if (gameStatus == GameStatus.USER_WON) {
             view.showMessage("Congratulations! You Win! ");
-//            try {
-//                view.createImageFile();
-//                view.galleryAddPic();
-//            }
-//            catch(Exception e){
-//                e.printStackTrace();
-//            }
+            view.addImageToFiles();
         }
     }
 

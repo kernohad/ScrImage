@@ -35,7 +35,14 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 public class GameViewerActivity extends AppCompatActivity implements GestureDetector.OnGestureListener, IView, View.OnClickListener{
@@ -49,6 +56,7 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
     Bitmap[] bm = new Bitmap[16];
     Target loadTarget;
     int size;
+    String photoPath;
 
     private PopupWindow popupWindow;
     private LayoutInflater layoutInflater;
@@ -358,11 +366,9 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
 
     public void addImageToFiles(){
         File myDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES+"/Scrimage/");
-
-        Random gen = new Random();
-        int n = 10000;
-        n=Math.abs(gen.nextInt());
-        String fname = "Win"+n+".jpg";
+        String galleryDir = "/storage/emulated/0/Pictures/Scrimage";
+        String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String fname = "/Win"+time+".jpg";
 
         boolean dir = myDir.mkdirs();
         File imageFile = new File(myDir, fname);
@@ -383,5 +389,4 @@ public class GameViewerActivity extends AppCompatActivity implements GestureDete
             e.printStackTrace();
         }
     }
-
 }
